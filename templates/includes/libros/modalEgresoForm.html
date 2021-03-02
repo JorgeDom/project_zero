@@ -1,0 +1,104 @@
+<!-- modalEgresoForm.html -->
+
+{% block content %}
+    <div class="modal fade modalEgresoForm" id="modalEgresoForm">
+        <div class="modal-dialog modal-xl modal-tablas">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Egreso</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="EgresoForm" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {{ form.on_field_errors }}
+                        <h5>1. Datos de la Operación</h5>
+                        <div class="form-row ml-3">
+                            <div class="form-group col-md-9">
+                                {{ form.operacion_tipo.label_tag }}
+                                {{ form.operacion_tipo }}
+                            </div><div class="form-group col-md-3">
+                                {{ form.operacion_fecha.label_tag }}
+                                {{ form.operacion_fecha }}
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <h5>2. Datos del Comprobante</h5>
+                        <div class="form-row ml-3">
+                            <div class="form-group col-md-4">
+                                {{ form.comprobante_timbrado.label_tag }}
+                                {{ form.comprobante_timbrado }}
+                            </div><div class="form-group col-md-4">
+                                {{ form.comprobante_nro.label_tag }}
+                                {{ form.comprobante_nro }}
+                            </div><div class="form-group col-md-4">
+                                {{ form.comprobante_condicion.label_tag }}
+                                {{ form.comprobante_condicion }}
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <h5>3. Datos del Proveedor de Bienes o Servicios</h5>
+                        <div class="form-row ml-3">
+                            <div class="form-group col-md-3">
+                                {{ form.proveedor_tipo_identificacion.label_tag }}
+                                {{ form.proveedor_tipo_identificacion }}
+                            </div><div class="form-group col-md-3">
+                                {{ form.proveedor_nro_identificacion.label_tag }}
+                                {{ form.proveedor_nro_identificacion }}
+                            </div><div class="form-group col-md-6">
+                                {{ form.proveedor_razon.label_tag }}
+                                {{ form.proveedor_razon }}
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <h5>4. Importes especificados en el Comprobante</h5>
+                        <div class="form-row ml-3">
+                            <div class="form-group col-md-4">
+                                {{ form.gravadas_10.label_tag }}
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend" style="width: 100%">
+                                        <span class="input-group-text">Gs.</span>
+                                        {{ form.gravadas_10 }}
+                                    </div>
+                                </div>
+                            </div><div class="form-group col-md-4">
+                                {{ form.gravadas_5.label_tag }}
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend" style="width: 100%">
+                                        <span class="input-group-text">Gs.</span>
+                                        {{ form.gravadas_5 }}
+                                    </div>
+                                </div>
+                            </div><div class="form-group col-md-4">
+                                {{ form.exentas.label_tag }}
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend" style="width: 100%">
+                                        <span class="input-group-text">Gs.</span>
+                                        {{ form.exentas }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-0">
+                        <h5>5. Tipo de Egreso</h5>
+                        <div class="form-row ml-3">
+                            <div class="form-group col-md-6">
+                                {{ form.egreso_tipo.label_tag }}
+                                {{ form.egreso_tipo }}
+                            </div><div class="form-group col-md-6">
+                                {{ form.egreso_clasificacion.label_tag }}
+                                {{ form.egreso_clasificacion }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" name="submit" value="Agregar" class="btn btn-primary" style="float: left"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

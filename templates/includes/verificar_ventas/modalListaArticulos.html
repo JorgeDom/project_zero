@@ -1,0 +1,41 @@
+<!-- modalListaArticulos.html -->
+
+{% block content %}
+    <div class="modal fade modalListaArticulos" id="modalListaArticulos">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-tablas">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Lista de artículos vendidos</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaArticulosVendidos" style="width: 100%">
+                            <thead>
+                                <tr align="center">
+                                    <th>Fecha</th>
+                                    <th>Artículo</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_lista_articulos_vendidos_modal_template_verificar_ventas-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="form-check" >
+                        <input type="checkbox" class="form-check-input" id="datos_desde_apertura_caja">
+                        <label class="form-check-label" for="datos_desde_apertura_caja">Mostrar desde la última apertura de caja</label>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

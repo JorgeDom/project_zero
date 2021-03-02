@@ -1,0 +1,101 @@
+td.texto, td.cantidad, td.input, td.obs, th.titulo_detalle{
+    text-align: center;
+    vertical-align: middle;
+}
+
+td.monto, th.detalle{
+    text-align: right;
+    vertical-align: middle;
+}
+
+.btn-xl {
+    min-width: 300px;
+    font-size: x-large;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.card-compra .card-venta {
+
+}
+
+input[type=number]{
+    width: 100%;
+}
+
+input[type=text]{
+    width: 100%;
+}
+
+form#VentaForm, form#PromocionForm{
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+}
+
+.fa-exclamation-circle{
+    color: #ffae42;;
+}
+
+.fa-check-circle{
+    color: #006600;
+}
+
+.fa-exclamation-triangle{
+    color: #b33a3a;
+}
+
+.tooltip{
+    pointer-events: none;
+}
+
+.card-text{
+    font-size: small;
+}
+
+table#listaClientesModal tbody tr[role=row], table#listaProductos tbody tr[role=row]{
+    text-align: center;
+}
+
+.table-wrap {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.primer_puesto{
+    color: #FFD700;
+}
+
+.segundo_puesto{
+    color: #C0C0C0;
+}
+
+.tercer_puesto{
+    color: #cd7f32;
+}
+
+div#grafico_costo_venta, div#grafico_ganancias{
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+td.articulo{
+    width: 30%;
+}
+
+table#tabla_ventas_totales td.cantidad{
+    width: 10%;
+}
+
+div#tabla_ventas_totales{
+    width: 100%;
+}
+
+button#boton_crear_clasificacion,
+button#boton_cargar_distribuidor,
+button#boton_registrar_marca{
+    width: 165px;
+    min-width: 165px;
+
+}

@@ -1,0 +1,79 @@
+<!-- venta_exitosa.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% include 'includes/navBar.html' %}
+    <br><br>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 col-sm-12">
+            <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+            <br>
+            <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+            </div>
+            <div id="alerts" role="alert"></div>
+
+            <h3 class="text-dark">Detalles de la venta</h3>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12 card bg-light mb-3 shadow rounded" style="font-size: small">
+            <br>
+            <h5 align="center">{{ datos_empresa.razon_social }}</h5>
+            <h6 align="center">{{ datos_empresa.direccion }}</h6>
+            <h6 align="center">Tel.:{{ datos_empresa.telefono }}</h6>
+            <h6 align="center">R.U.C.:{{ datos_empresa.ruc }}</h6>
+            <p align="center">Timbrado Nro.: {{ datos_empresa.timbrado_nro }}</p>
+            <p align="center">Vig.: {{ datos_empresa.vigencia_desde }} - Vto.: {{ datos_empresa.vigencia_hasta }}</p>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <p>Factura Nro. {{ nro_factura }}</p>
+                <p>Cond. Venta: CONTADO</p>
+            </div>
+            <p>Fecha - Hora: {{ fecha_hora }}</p>
+            <div class="d-flex justify-content-between">
+                <p>Cliente: {{ cliente }}</p>
+                <p>RUC: {{ ruc }}</p>
+            </div>
+            <table class="table table-sm" style="font-size: small">
+                <thead>
+                    <tr style="text-align: center">
+                        <th>Producto</th>
+                        <th>IVA</th>
+                        <th>Sub-total Gs.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                        <tr>
+                            <td style="text-align: left">{{ producto.articulo }} x {{ producto.cantidad }}</td>
+                            <td style="text-align: right">{{ producto.tipo_impuesto }}%</td>
+                            <td style="text-align: right">{{ producto.subtotal }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <p>Total Gs.: {{ suma_total }}</p>
+            <p>Total Gs. abonado: {{ suma_pagada }}</p>
+            <p>Total Gs. vuelto: {{ suma_vuelto }}</p>
+            <hr>
+            <p>Total exenta: {{ exenta }}</p>
+            <p>Total gravadas 5%: {{ gravadas.gravadas_5 }}</p>
+            <p>Total gravadas 10%: {{ gravadas.gravadas_10 }}</p>
+            <hr>
+            <p>Total impuesto 5%: {{ impuestos.impuesto_5 }}</p>
+            <p>Total impuesto 10%: {{ impuestos.impuesto_10 }}</p>
+            <p>Total impuesto: {{ impuestos.total_impuesto }}</p>
+            <hr>
+            <p align="center">Gracias por su compra!<br>
+                Lo esperamos pronto.</p>
+        </div>
+    </div>
+
+{% endblock %}

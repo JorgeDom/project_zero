@@ -1,0 +1,51 @@
+<!-- ventas_totales.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.contenttypes.view_estadisticas %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row mt-3">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10 col-sm-12">
+                    <div class="col-12 border rounded" style="background-color: #f2f2f2">
+                        <form>
+                            <div class="row d-flex align-items-center p-3">
+                                {% include 'includes/estadisticas/selectores_anho_mes.html' %}
+                            </div>
+                        </form>
+                    </div>
+                    <hr>
+                    <div id="div_tabla_ventas_totales" class="table-responsive-md table-responsive-sm" style="font-size: small" hidden>
+                        <h4 class="d-flex justify-content-center">Ventas totales</h4>
+                        <table class="table table-striped" id="tabla_ventas_totales">
+                            <thead>
+                                <tr align="center">
+                                    <th>Articulo</th>
+                                    <th>Cantidad</th>
+                                    <th>Porcentaje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (ventas_totales.js)
+                                     Y LA FUNCION EN view.py ES get_top_100-->
+                            </tbody>
+                        </table>
+                    </div>
+                    {% include 'estadisticas/botones_footer.html' %}
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+
+            <script src="{% static 'js/graficos/ventas_totales.js' %}"></script>
+            <script src="{% static 'js/graficos/filtrar_meses_x_anho.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

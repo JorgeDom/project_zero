@@ -1,0 +1,28 @@
+<!-- modalPreguntaCerrarCaja.html -->
+
+{% block content %}
+    <div class="modal fade" id="modalPreguntaCerrarCaja">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fas fa-exclamation-triangle" style="color: #ff9900"></i> &nbsp; ¡Atención!</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p>Está a punto de Cerrar la Caja. Recuerda que una vez cerrada la caja no podrán registrarse más ventas,
+                    por lo que la opción <b>Registrar venta</b> del menú principal será deshabilitado.</p>
+
+                    <p>¿Está seguro/a de continuar con la operación?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Aún no</button>
+                    <button type="button" class="btn btn-primary" id="boton_pregunta_cerrar_caja">Si, estoy seguro/a</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

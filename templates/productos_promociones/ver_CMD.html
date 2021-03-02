@@ -1,0 +1,114 @@
+<!-- ver_CMD.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.view_clasificacion or perms.easystockApp.view_distribuidor or perms.easystockApp.view_marca %}
+        {% include 'includes/ver_CMD/modalEditarClasificacion.html' %}
+        {% include 'includes/ver_CMD/modalEditarMarca.html' %}
+        {% include 'includes/ver_CMD/modalEditarDistribuidor.html' %}
+        {% include 'includes/ver_CMD/modalDeleteCMD.html' %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 pr-5 pl-5">
+                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <br>
+                <div id="alert" hidden></div>
+            </div>
+            <div class="col-md-12 col-sm-12 d-flex justify-content-center border-bottom">
+                <p class="w-75"><strong>IMPORTANTE!</strong>
+                    Las 3 categorías a continuación son utilizadas para proveer de un cierto orden a la hora de agregar un producto
+                en el stock. Por ejemplo, si se llega a editar y cambiar la descripción de una <i>Clasificación</i>, todos los productos bajo esa Clasificaciíón
+                pasarán a tener la nueva descripción. <strong>La eliminación de estas tres categorías solo podrá ser concretada SI y SOLO SI no existe producto en el stock
+                    con esos datos.</strong></p>
+            </div>
+            <div class="col-md-12 col-sm-12 d-flex justify-content-between pr-3 pl-3 mt-3">
+                <div class="col-4 border-right">  <!-- clasificaciones -->
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Clasificaciones</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaClasificaciones">
+                            <thead>
+                                <tr align="center">
+                                    <th>Descripción</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_clasificaciones-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-4 border-right">  <!-- Marcas -->
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Marcas</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaMarcas">
+                            <thead>
+                                <tr align="center">
+                                    <th>Descripción</th>
+                                    <th>Clasificación</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_marcas-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-4 ">  <!-- Distribuidores -->
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Distribuidores</h3>
+                        </div>
+                    </div>
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaDistribuidores">
+                            <thead>
+                                <tr align="center">
+                                    <th>Descripción</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_distribuidores-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-end">
+            <div class="p-1"><a href="{% url 'nuevo_producto' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Cargar nuevo producto"><i class="fas fa-clipboard-list"></i></a></div>
+            <div class="p-1"><a href="{% url 'crear_promo' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Crear nueva promoción"><i class="fas fa-plus"></i> </a></div>
+            <div class="p-1"><a href="{% url 'listar_productos' %}" class="btn btn-primary"  role="button" data-toggle="tooltip" data-placement="bottom" title="Verificar Stock"><i class="fas fa-boxes"></i></a></div>
+            <div class="p-1"><a href="{% url 'listar_promociones' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Ver lista de promociones"><i class="fas fa-percent"></i></a></div>
+            <div class="p-1"><a  href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+        </div>
+
+        <script src="{% static 'js/producto_promocion/ver_CMD.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

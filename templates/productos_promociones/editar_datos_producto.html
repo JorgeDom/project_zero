@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.change_producto %}
+        {% include 'includes/cargar_producto/modalCrearClasificacion.html' %}
+        {% include 'includes/cargar_producto/modalCargarDistribuidor.html' %}
+        {% include 'includes/cargar_producto/modalRegistrarMarca.html' %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row">
+            <div class="col-md-1 hidden-sm-down"></div>
+            <div class="col-md-10 col-sm-12">
+                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <br>
+                <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                </div>
+
+                <h3 class="text-dark"> Editar datos del producto </h3>
+                <hr>
+
+                <form id="ProductoForm" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group input-group">
+                                <select name="distribuidor" class="form-control" required="required"  id="id_distribuidor">
+                                    <option value="default">Seleccione un distribuidor...</option>
+                                    {% for distribuidor in dict_editar_producto.distribuidor %}
+                                        <option value="{{ distribuidor }}" {% if distribuidor == dict_editar_producto.distribuidor_actual %} selected="selected"{% endif %}> {{ distribuidor }}
+                                    {% endfor %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="boton_cargar_distribuidor">Cargar Distribuidor</button>
+                                </div>
+                            </div>
+                            <div class="form-group input-group">
+                                <select name="clasificacion" class="form-control" required="required" id="id_clasificacion">
+                                    <option value="default">Seleccione una clasificación...</option>
+                                    {% for clasificacion in dict_editar_producto.clasificacion %}
+                                        <option value="{{ clasificacion }}" {% if clasificacion == dict_editar_producto.clasificacion_actual %} selected="selected"{% endif %}> {{ clasificacion }}
+                                    {% endfor %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="boton_crear_clasificacion">Crear Clasificasión</button>
+                                </div>
+                            </div>
+                            <div class="form-group input-group">
+                                <select name="marca" class="form-control" required="required" id="id_marca">
+                                    <option value="default">Seleccione una marca...</option>
+                                    {% for marca in dict_editar_producto.marca %}
+                                        <option value="{{ marca }}" {% if marca == dict_editar_producto.marca_actual %} selected="selected"{% endif %}> {{ marca }}
+                                    {% endfor %}
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="boton_registrar_marca">Registrar Marca</button>
+                                </div>
+                            </div>
+                            <div class="form-group"><input type="text" name="descripcion" class="form-control" value="{{ dict_editar_producto.descripcion }}" placeholder="Descripción (Pilsen'i, Guaraná, etc.)" required maxlength="50" id="id_descripcion"></div>
+                            <div class="form-group"><input type="text" name="presentacion" class="form-control" value="{{ dict_editar_producto.presentacion }}" placeholder="Presentación (tamaño, volúmen, unidades, etc.)" required maxlength="50" id="id_presentacion"></div>
+                            <div class="form-group"><input type="text" name="etiqueta_opcional" class="form-control" value="{{ dict_editar_producto.etiqueta_opcional }}" placeholder="Etiqueta opcional" maxlength="100" id="id_etiqueta_opcional"></div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <label for="id_precio_costo">Precio de Costo:</label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Gs.</span>
+                                        <input type="number" name="precio_costo" class="form-control" value="{{ dict_editar_producto.precio_costo }}" placeholder="Precio de costo" required min="0" id="id_precio_costo">
+                                    </div>
+                                </div>
+                                <div class="col form-group">
+                                    <label for="id_precio_venta">Precio de Venta:</label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Gs.</span>
+                                        <input type="number" name="precio_venta" class="form-control" value="{{ dict_editar_producto.precio_venta }}" placeholder="Precio de venta" required min="0" id="id_precio_venta">
+                                    </div>
+                                </div>
+                                <div class="col form-group">
+                                <label for="id_impuesto">% de Impuesto:</label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">I.V.A.</span>
+                                        <select name="impuesto" class="form-control" required="required" id="id_impuesto">
+                                            <option value="5" {% if impuesto == "5" %} selected="selected"{% endif %}>5%</option>
+                                            <option value="10" {% if impuesto == "10" %} selected="selected"{% endif %}>10%</option>
+                                            <option value="EX" {% if impuesto == "EX" %} selected="selected"{% endif %}>Exenta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="id_stock-minimo">Stock Mínimo:</label>
+                                    <input class="form-control" type="number" name="stock-minimo" value="{{ dict_editar_producto.stock_minimo }}" min="0" id="id_stock-minimo" placeholder="Stock mínimo" required>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="id_stock-optimo">Stock Óptimo:</label>
+                                    <input class="form-control" type="number" name="stock-optimo" value="{{ dict_editar_producto.stock_optimo }}" min="0" id="id_stock-optimo" placeholder="Stock óptimo" required>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="id_stock-actual">Stock Actual:</label>
+                                    {% if request.user|has_group:"Administradores" %}
+                                        <input class="form-control" type="number" name="stock-actual" value="{{ dict_editar_producto.stock_actual }}" min="0" id="id_stock-actual" placeholder="Stock actual" required>
+                                    {% else %}
+                                        <input class="form-control" type="number" name="stock-actual" value="{{ dict_editar_producto.stock_actual }}" min="0" id="id_stock-actual" placeholder="Stock actual" required readonly>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <div class="p-1"><input type="submit" name="submit" value="Guardar Cambios" class="btn btn-primary"/></div>
+                        <div class="p-1"><a class="btn btn-secondary" href="{% url 'listar_productos' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver atras"><i class="fas fa-undo"></i></a></div>
+                    </div>
+                </form>
+
+
+            </div>
+            <div class="col-md-1 hidden-sm-down"></div>
+        </div>
+
+        <script src="{% static 'js/producto_promocion/editar_producto.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+
+{% endblock %}

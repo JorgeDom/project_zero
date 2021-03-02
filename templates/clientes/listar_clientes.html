@@ -1,0 +1,88 @@
+<!-- listar_clienntes.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.view_cliente %}
+            {% include 'includes/modalDeleteCliente.html' %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10 col-sm-12">
+                    <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                    <br>
+                    <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                    </div>
+                    {% if cantidad_clientes == 0 %}
+
+                        <h5>No existen clientes registrados.</h5>
+                        <br>
+                        <a href="{% url 'nuevo_cliente' %}" class="btn btn-primary" role="button">Registrar cliente</a>
+
+                    {% else %}
+
+                        <div class="col-12">
+                            <div class="row justify-content-between">
+                                <h3 class="text-dark">Clientes</h3>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                            <table class="table table-striped" id="listaClientes">
+                                <thead>
+                                    <tr align="center">
+                                        <th>Nombre/s y Apellido/s</th>
+                                        <th>C.I./R.U.C.</th>
+                                        <th>Tel. Nro.</th>
+                                        <th>E-mail</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in clientes %}
+                                        <tr>
+                                            <td class="texto">{{ i.nombre_apellido }}</td>
+                                            <td class="texto">{{ i.ci_ruc_dv }}</td>
+                                            <td class="texto">{{ i.tel_nro }}</td>
+                                            <td class="texto">{{ i.email }}</td>
+                                            <td align="center">
+                                                <a href="{% url 'editar_datos_cliente' %}?id= {{ i.id }}" id="editar_datos_cliente"><i class="far fa-edit fa-lg"></i></a>
+                                            </td>
+                                            <td align="center">
+                                                {% if user.has_perm.easystock.delete_cliente %}
+                                                    <a href="#" data-cliente_id="{{ i.id }}" data-toggle="modal" data-target="#modalDeleteCliente"><i class="far fa-trash-alt fa-lg"></i></a>
+                                                {% else %}
+                                                    <i class="fas fa-ban fa-lg" data-toggle="tooltip" title="No posee los permisos para realizar esta operación"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-end">
+                            <div class="p-1"><a  href="{% url 'nuevo_cliente' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Registrar cliente"><i class="fas fa-user-plus"></i></a></div>
+                            <div class="p-1"><a  href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+
+            <script src="{% static 'js/clientes/listar_clientes.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

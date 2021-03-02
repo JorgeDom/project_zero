@@ -1,0 +1,118 @@
+<!-- lista_productos.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.view_producto %}
+        {% include 'includes/modalDelete.html' %}
+        {% include 'includes/modalAddStock.html' %}
+        {% include 'includes/modalValorStockDetallado.html' %}
+        {% include 'includes/modalValorStockHistorico.html' %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row justify-content-center">
+            <div class="col-md-11 col-sm-12">
+                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <br>
+                <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                </div>
+                <div id="alerts"></div>
+                {% if cantidad_productos == 0 %}
+
+                    <h5>No existen productos en el stock</h5>
+                    <br>
+                    <a href="{% url 'nuevo_producto' %}" class="btn btn-primary" role="button">Nuevo producto</a>
+
+                {% else %}
+
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Productos disponibles</h3>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaProductos">
+                            <thead>
+                                <tr align="center">
+                                    <th>Obs.</th>
+                                    <th>Distribuidor</th>
+                                    <th>Clasificación</th>
+                                    <th>Marca</th>
+                                    <th>Descripción</th>
+                                    <th>Presentación</th>
+                                    <th>Precio Venta</th>
+                                    <th>Cant disp.</th>
+                                    <th>Agregar</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_lista_productos_AJAX-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row">   <!-- Datos de ventas del dia -->
+                        <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center">
+                            <h6 class="mb-0">Valor total del Stock:</h6>
+                            <span class="small">Al {{ fecha_hoy }}</span>
+                        </div>
+                        <div class="col-md-8 col-sm-12 d-flex flex-row justify-content-center align-items-center small">
+                            <div class="col border-right">
+                                <h5 class="d-flex justify-content-center mb-0">
+                                    Gs. {{ valor_venta }}</h5>
+                                <span class="small d-flex justify-content-center">Valor de Venta</span>
+                            </div>
+                            <div class="col border-right">
+                                <h5 class="d-flex justify-content-center mb-0">
+                                    Gs. {{ valor_costo }}</h5>
+                                <span class="small d-flex justify-content-center">Valor de Costo</span>
+                            </div>
+                            <div class="col pr-0">
+                                <h6>Seleccione un parámetro:</h6>
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm" id="select_detalles_stock">
+                                        <option>Distribuidor</option>
+                                        <option>Clasificación</option>
+                                        <option>Marca</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary btn-sm" type="button" id="boton_ver_detalles"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <div class="mr-auto p-1">
+                            {% if request.user|has_group:"Administradores" %}
+                                <a class="btn btn-primary" href="{% url 'clasificaciones_stock' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Ver distribución porcentual del stock"><i class="fas fa-chart-pie"></i></a>
+                                <a class="btn btn-primary" href="{% url 'valores_historicos_stock' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Ver gráfico de los valores históricos del stock"><i class="fas fa-chart-bar"></i></a>
+                            {% endif %}
+                             <a class="btn btn-primary" href="#" role="button" data-toggle="tooltip" data-placement="bottom" title="Ver historial del valor del stock" id="boton_ver_historial_stock"><i class="fas fa-scroll"></i></a>
+                        </div>
+                        <div class="p-1"><a href="{% url 'nuevo_producto' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Cargar nuevo producto"><i class="fas fa-clipboard-list"></i></a></div>
+                        <div class="p-1"><a href="{% url 'listar_promociones' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Ver lista de promociones"><i class="fas fa-percent"></i></a></div>
+                        <div class="p-1"><a  href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <script src="{% static 'js/producto_promocion/listar_productos.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

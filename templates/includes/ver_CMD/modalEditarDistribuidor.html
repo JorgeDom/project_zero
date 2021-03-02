@@ -1,0 +1,45 @@
+<!-- modalEditarDistribuidor.html -->
+
+{% block content %}
+    <div class="modal fade" id="modalEditarDistribuidor">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar distribuidor</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <form id="formModalEditarDistribuidor" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12" id="alert_modal">
+                                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                                <br>
+                                <div id="alerts" role="alert"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="item_id" value="" hidden>
+                                    <p>IMPORTANTE!. La edición de un distribuidor no afectará los datos de
+                                    los productos en el stock. Estos serán actualizados automaticamente.</p>
+                                    <label for="nuevo_distribuidor">Especifique el nuevo nombre para el distribuidor:</label>
+                                    {{ formDistri.nuevo_distribuidor }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer form-group">
+                        <input type="submit" name="submit" value="Guardar" class="btn btn-primary"/>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

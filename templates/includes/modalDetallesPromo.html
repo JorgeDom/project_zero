@@ -1,0 +1,33 @@
+<!-- modalDetallesPromo.html -->
+
+{% block content %}
+    <div class="modal fade modalDetallesPromo" id="modalDetallesPromo">
+        <div class="modal-dialog modal-dialog-centered modal-tablas">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Productos dentro de la Promoción</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive-md table-responsive-sm table-wrap" style="font-size: small">
+                        <table class="table table-striped table-bordered table-sm" id="detallesPromocionProductos" style="width: 100%">
+                            <thead>
+                                <tr style="text-align: center">
+                                    <th>Artículo</th><th>Cantidad</th><th>Precio unit.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- se carga desde AJAX - listar_productos.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

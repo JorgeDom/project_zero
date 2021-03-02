@@ -1,0 +1,82 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>EasyStock</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="Jorge Dominguez & Ivan Villalba" content="Sistema de control integrado">
+    <meta http-equiv="refresh" content="{{ refreshTimer }}">
+
+    {% load static %}
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1/css/bootstrap.min.css' %}" type = "text/css"/>
+
+    <link rel="stylesheet" href="{% static 'css/extras.css' %}" type = "text/css"/>
+
+    <!-- JQuery-UI CSS -->
+    <link rel="stylesheet" href="{% static 'jquery/jquery-ui-1.12.1/jquery-ui.min.css' %}" type = "text/css"/>
+
+    <!-- fontAwesome CSS -->
+    <link rel="stylesheet" href="{% static 'fontawesome-5.7.2/css/all.css' %}" type = "text/css"/>
+
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" href="{% static 'datatables-1.10.18/datatables.min.css' %}" type = "text/css"/>
+
+    <!-- Calendario CSS -->
+    <link rel="stylesheet" href="{% static 'Zabuto-calendar/zabuto_calendar.min.css' %}" type = "text/css"/>
+
+    <!-- jQuery JS-->
+    <script src="{% static 'jquery/jquery-3.3.1/jquery-3.3.1.min.js' %}"></script>
+
+    <!-- jQuery-UI JS-->
+    <script src="{% static 'jquery/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+    <!-- DataTable JS-->
+    <script src="{% static 'datatables-1.10.18/datatables.min.js' %}"></script>
+
+    <!-- Django Bootstrap modal form -->
+    <script src="{% static 'django-bootstrap-modal-forms-1.3.1/bootstrap_modal_forms/static/js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+
+    <!-- Calendario JS -->
+    <script src="{% static 'Zabuto-calendar/zabuto_calendar.min.js' %}"></script>
+
+    <!-- HighCharts JS -->
+    <script src="{% static 'highstock-7.1.2/code/highstock.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/highcharts-more.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/modules/heatmap.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/modules/drilldown.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/modules/data.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/modules/exporting.js' %}"></script>
+    <script src="{% static 'highcharts-7.1.2/code/modules/export-data.js' %}"></script>
+
+    <!-- Popper JS -->
+    <script src="{% static 'jquery/popper/popper.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap-4.3.1/js/bootstrap.min.js' %}"></script>
+
+    <link rel="icon" href="{% static 'images/icono.png' %}"/>
+
+</head>
+<body>
+
+    <div class="container-fluid" style="min-width: 1280px; min-height: 720px">
+        {% block content %}
+        {% endblock %}
+
+        <div class="footer-push"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+        });
+    </script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/dataTables.js' %}"></script>
+</body>
+</html>

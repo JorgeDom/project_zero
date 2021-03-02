@@ -1,0 +1,100 @@
+<!-- index_estadisticas.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.contenttypes.view_estadisticas %}
+        {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row mt-4">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10 col-sm-12 d-flex flex-row justify-content-center">
+                    <div class="card text-center" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/ganancias.PNG' %}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Ganancias</h5>
+                            <p class="card-text">Gráfico de área que muestra las Ganancias diarias, calculando la diferencia entre el
+                            precio de costo y el precio de venta de los artículos facturados.</p>
+
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'ganancias' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center ml-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/ranking_top_3.PNG' %}" alt="Card image cap" style="height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Ranking - Top 3</h5>
+                            <p class="card-text">Gráfico de barras que muestra el ranking diario de los 3 artículos más solicitados en un
+                                mes en particular.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'ranking_articulos' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center ml-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/ventas_totales.PNG' %}" alt="Card image cap" style="height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Ventas Totales</h5>
+                            <p class="card-text">Gráfico de barras que muestra el total de ventas de los 100 artículos más solicitados en un
+                                mes en particular.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'ventas_totales' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10 col-sm-12 d-flex flex-row justify-content-center">
+                    <div class="card text-center" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/ventas_x_dia.PNG' %}" alt="Card image cap"  style="height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Ventas por día de la Semana</h5>
+                            <p class="card-text">Mapa de calor que muestra, en base a los días de la semana, la cantidad vendida
+                                de los 10 artículos más solicitados.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'ventas_dias_semana' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center ml-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/clasificacion_stock.PNG' %}" alt="Card image cap"  style="height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Distribución del Stock</h5>
+                            <p class="card-text">Gráfico que muestra la distribución del stock en base a las clasificaciones y a las Marcas pertenecientes a cada clasificación.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'clasificaciones_stock' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+
+                    <div class="card text-center ml-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{% static 'images/estadisticas/valor_historico_stock.PNG' %}" alt="Card image cap"  style="height: 180px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Valores históricos del stock</h5>
+                            <p class="card-text">Gráfico que muestra los valores del Stock en el transcurso del tiempo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'valores_historicos_stock' %}" class="btn btn-primary">Ver gráfico</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,62 @@
+<!-- nuevo_cliente.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.change_cliente %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row">
+            <div class="col-md-1 hidden-sm-down"></div>
+            <div class="col-md-10 col-sm-12">
+                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <br>
+                <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                </div>
+                <div id="alerts" role="alert"></div>
+
+                <h3 class="text-dark">Editar datos del cliente</h3>
+                <hr>
+
+                <form id="ClienteForm" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">{{ form.nombre_apellido }}</div>
+                            <div class="form-row">
+                                <div class="form-group col-9">
+                                    {{ form.ci_ruc }}
+                                </div>
+                                <div class="form-group col-1 d-flex justify-content-center align-items-center">
+                                    <i class="fas fa-minus"></i>
+                                </div>
+                                <div class="form-group col-2">
+                                    {{ form.dig_verif }}
+                                </div>
+                            </div>
+                            <div class="form-group"> {{ form.tel_nro }}</div>
+                            <div class="form-group"> {{ form.direccion }}</div>
+                            <div class="form-group"> {{ form.email }}</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex">
+                        <div class="p-1"><input type="submit" name="submit" value="Guardar Cambios" class="btn btn-primary"/></div>
+                        <div class="p-1"><a  href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 hidden-sm-down"></div>
+        </div>
+
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

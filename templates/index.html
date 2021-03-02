@@ -1,0 +1,272 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% include 'includes/caja/modalAbrirCaja.html' %}
+        {% include 'includes/caja/modalPreguntaCerrarCaja.html' %}
+        {% include 'includes/caja/modalCerrarCaja.html' %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 d-md-inline-flex justify-content-md-center d-sm-flex align-content-sm-center mt-4">
+                <div class="col-md-3 col-sm-12"> <!-- botones -->
+                    {% if perms.easystockApp.add_producto %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-0"
+                           href="{% url 'nuevo_producto' %}" role="button">
+                            <div class="col-2"><i class="fas fa-clipboard-list"></i></div>
+                            <div class="col-10">Nuevo producto</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.add_promocion %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'crear_promo' %}" role="button">
+                            <div class="col-2"><i class="fas fa-percentage"></i></div>
+                            <div class="col-10">Crear promoción</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.view_producto %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'listar_productos' %}" role="button">
+                            <div class="col-2"><i class="fas fa-boxes"></i></div>
+                            <div class="col-10">Verificar stock</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.view_clasificacion or perms.easystockApp.view_distribuidor or perms.easystockApp.view_marca %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'ver_CMD' %} "
+                           role="button">
+                            <div class="col-2"><i class="fas fa-archive"></i></div>
+                            <div class="col-10">Clasif./Marcas/Distr.</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.add_cliente %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'nuevo_cliente' %}" role="button">
+                            <div class="col-2"><i class="fas fa-user-plus"></i></div>
+                            <div class="col-10">Registrar cliente</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.view_cliente %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'listar_clientes' %}" role="button">
+                            <div class="col-2"><i class="far fa-address-book"></i></div>
+                            <div class="col-10">Lista de clientes</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.add_venta %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'registrar_venta' %}" role="button">
+                            <div class="col-2"><i class="fas fa-hand-holding-usd"></i></div>
+                            <div class="col-10">Registrar venta</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.view_venta %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'verificar_ventas' %}" role="button">
+                            <div class="col-2"><i class="fas fa-list-alt"></i></div>
+                            <div class="col-10">Verificar ventas</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.easystockApp.view_caja %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'verificar_caja' %}" role="button">
+                            <div class="col-2"><i class="fas fa-cash-register"></i></div>
+                            <div class="col-10">Verificar Caja</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.contenttypes.view_estadisticas %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'estadisticas' %}" role="button">
+                            <div class="col-2"><i class="fas fa-chart-line"></i></div>
+                            <div class="col-10">Ver estadísticas</div>
+                        </a>
+                    {% endif %}
+                    {% if perms.eventosApp.view_evento %}
+                        <a class="btn btn-outline-dark btn-xl d-flex justify-content-center mt-2"
+                           href="{% url 'ver_logs' %}" role="button">
+                            <div class="col-2"><i class="fas fa-server"></i></div>
+                            <div class="col-10">Ver eventos</div>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col-md-9 col-sm-12">
+                    <div class="row">   <!-- Apertura y cierre de caja -->
+                        <div class="col-4">
+                            <button type="button" class="btn btn-dark btn-lg btn-block" data-toggle="modal" data-target="#modalAbrirCaja" {{ propiedad_boton_apertura }}>
+                                Abrir Caja
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-dark btn-lg btn-block" data-toggle="modal"  data-target="#modalPreguntaCerrarCaja" {{ propiedad_boton_cierre }}>
+                                Cerrar Caja
+                            </button>
+                        </div>
+                        <div class="col-4 d-flex flex-column justify-content-center align-items-start border-left">
+                            {% if monto_apertura == '0' %}
+                                <h6 style="color: white; background-color: #b33a3a; border-radius: 3px" class="p-1">
+                                    LA CAJA NO HA SIDO ABIERTA AÚN!</h6>
+                            {% else %}
+                                {% if estado_caja == 'abierta' %}
+                                    <p class="m-0"><strong>La caja fue abierta con: &nbsp;</strong><span>Gs. {{ monto_apertura }}</span></p>
+                                {% else %}
+                                    <p class="m-0"><strong>La caja fue abierta con: &nbsp;</strong><span>Gs. {{ monto_apertura }}</span></p>
+                                    <p class="m-0"><strong>La caja fue cerrada con: &nbsp;</strong><span>Gs. {{ monto_cierre }}</span></p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">   <!-- Ranking de articulos -->
+                        <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center">
+                            <h6 class="mb-0">Ranking de los Artículos más vendidos:</h6>
+                            <span class="small">Desde el {{ fecha_semana_pasada }}</span>
+                        </div>
+                        <div class="col-md-8 col-sm-12 d-flex flex-row justify-content-around small"> <!-- ranking -->
+                            <ul class="fa-ul">
+                                <li><span class="fa-li"><i
+                                        class="primer_puesto fas fa-crown fa-lg"></i></span>{{ primer_puesto }}</li>
+                                <li><span class="fa-li"><i
+                                        class="segundo_puesto fas fa-trophy"></i></span>{{ segundo_puesto }}</li>
+                                <li><span class="fa-li"><i
+                                        class="tercer_puesto fas fa-trophy"></i></span>{{ tercer_puesto }}</li>
+                            </ul>
+                            <ul class="fa-ul">
+                                <li><span class="fa-li"><i
+                                        class="otros_puestos fas fa-award"></i></span>{{ cuarto_puesto }}</li>
+                                <li><span class="fa-li"><i
+                                        class="otros_puestos fas fa-award"></i></span>{{ quinto_puesto }}</li>
+                                <li><span class="fa-li"><i
+                                        class="otros_puestos fas fa-award"></i></span>{{ sexto_puesto }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="mt-3">
+
+                    <div class="row">   <!-- Datos de ventas del dia -->
+                        <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center">
+                            <h6 class="mb-0">Datos de ventas:</h6>
+                            {% if datos_ventas_del_dia.mensaje == 'Si existe caja abierta' %}
+                                <span class="small">Desde la apertura de la caja ({{ datos_ventas_del_dia.fecha }})</span>
+                                <span class="small">Total de Facturas emitidas: {{ datos_ventas_del_dia.total_ventas }}</span>
+                            {% else %}
+                                <span class="small"></span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 col-sm-12 d-flex flex-row justify-content-center align-items-center small">
+                            {% if datos_ventas_del_dia.mensaje == 'Si existe caja abierta' %}
+                                <div class="col border-right ">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_venta }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de ventas</span>
+                                </div>
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_costo }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de costos</span>
+                                </div>
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_ganancia }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de ganancias (ventas - costos)</span>
+                                </div>
+                            {% else %}
+                                <h6 style="color: white; background-color: #b33a3a; border-radius: 3px" class="p-1">
+                                    LA CAJA NO HA SIDO ABIERTA AÚN!</h6>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr class="mt-3">
+                    {% if request.user|has_group:"Administradores" %}
+                        <div class="row">   <!-- Ganancia acumulada del mes -->
+                            <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center">
+                                <h6 class="mb-0">Ganancia acumulada del mes:</h6>
+                                <span class="small">Mes pasado vs. Mes actual</span>
+                            </div>
+                            <div class="col-md-8 col-sm-12 d-flex flex-row justify-content-center align-content-center small">
+                                <!-- ganancias -->
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ganancia_mensual.ganancia_mes_anterior }}</h5>
+                                    <span class="small d-flex justify-content-center">{{ datos_ganancia_mensual.mes_anterior }} del {{ datos_ganancia_mensual.anho_anterior }}</span>
+                                </div>
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ganancia_mensual.ganancia_mes_actual }}</h5>
+                                    <span class="small d-flex justify-content-center">{{ datos_ganancia_mensual.mes_actual }} del {{ datos_ganancia_mensual.anho_actual }}</span>
+                                </div>
+                                <div class="col border-right">
+                                    {% if datos_ganancia_mensual.indice == 'p' %}
+                                        <h5 class="d-flex justify-content-center mb-0" style="color: #1c7430">
+                                            +{{ datos_ganancia_mensual.porcentaje }}% <i class="fas fa-sort-up"></i>
+                                        </h5>
+                                    {% else %}
+                                        <h5 class="d-flex justify-content-center mb-0"
+                                            style="color: #9f191f">{{ datos_ganancia_mensual.porcentaje }}% <i
+                                                class="fas fa-sort-down"></i></h5>
+                                    {% endif %}
+                                    <span class="small d-flex justify-content-center">Respecto al mes anterior</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mt-2">
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12"> <!-- compras recientes -->
+                            <div class="card" style="height: 300px;">
+                                <h6 class="card-header">Compras recientes</h6>
+                                <div class="card-body">
+                                    {% if cantidad_eventos_compra == 0 %}
+                                        <p class="card-text" style="font-size: 11px;"> No existen compras recientes</p>
+                                    {% else %}
+                                        {% for item in eventos_compra %}
+                                            <div class="row" style="margin-bottom: 10px;">
+                                                <div class="col-1 d-flex align-content-center m-0"><i
+                                                        class="fa fa-exclamation-circle" style="color: #ff9900"></i>
+                                                </div>
+                                                <div class="col-11 d-flex align-content-center m-0 pl-1"><p
+                                                        class="card-text mb-0"
+                                                        style="font-size: 11px;">{{ item.descripcion }}
+                                                    el {{ item.fecha_hora }}</p></div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12"> <!-- ventas recientes -->
+                            <div class="card" style="height: 300px;">
+                                <h6 class="card-header">Ventas recientes</h6>
+                                <div class="card-body">
+                                    {% if cantidad_eventos_venta == 0 %}
+                                        <p class="card-text" style="font-size: 11px;"> No existen ventas recientes</p>
+                                    {% else %}
+                                        {% for item in eventos_venta %}
+                                            <div class="row" style="margin-bottom: 10px;">
+                                                <div class="col-1 d-flex align-content-center m-0 pr-1"><i
+                                                        class="fa fa-exclamation-circle" style="color: #ff9900"></i>
+                                                </div>
+                                                <div class="col-11 d-flex align-content-center m-0 pl-1"><p
+                                                        class="card-text"
+                                                        style="font-size: 11px;">{{ item.descripcion }}
+                                                    el {{ item.fecha_hora }}</p></div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'js/caja/abrirCerrarCaja.js' %}"></script>
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

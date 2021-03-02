@@ -1,0 +1,143 @@
+<!-- nuevo_producto.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.add_producto %}
+            {% include 'includes/cargar_producto/modalCrearClasificacion.html' %}
+            {% include 'includes/cargar_producto/modalCargarDistribuidor.html' %}
+            {% include 'includes/cargar_producto/modalRegistrarMarca.html' %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10 col-sm-12">
+                    <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                    <br>
+                    <div class="alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                    </div>
+
+                    <h3 class="text-dark"> Cargar nuevo producto </h3>
+                    <hr>
+
+                    <form id="ProductoForm" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% if cant_ultimos_productos != 0 %}
+                                <div class="col-md-5 col-sm-12">
+                                    <h4 class="text-secondary">Productos agregados recientemente</h4>
+                                    <div class="table-responsive-md table-responsive-sm table-s" style="font-size: small">
+                                        <table class="table table-striped" id="listaUltimosProductos">
+                                            <thead>
+                                            <tr align="center">
+                                                <th>Marca</th>
+                                                <th>Descripción</th>
+                                                <th>Presentación</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for producto in ultimos_productos %}
+                                                <tr align="center">
+                                                    <td>{{ producto.marca }}</td>
+                                                    <td>{{ producto.descripcion }}</td>
+                                                    <td>{{ producto.presentacion }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-7">
+                                <div class="form-group input-group">{{ form.distribuidor }}
+                                    {% if perms.easystockApp.add_distribuidor %}
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button"
+                                                    id="boton_cargar_distribuidor">Cargar Distribuidor
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group input-group">{{ form.clasificacion }}
+                                    {% if perms.easystockApp.add_clasificacion %}
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button"
+                                                    id="boton_crear_clasificacion">Crear Clasificasión
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group input-group">{{ form.marca }}
+                                    {% if perms.easystockApp.add_marca %}
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button" id="boton_registrar_marca">
+                                                Registrar Marca
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">{{ form.descripcion }}</div>
+                                <div class="form-group">{{ form.presentacion }}</div>
+                                <div class="form-group">{{ form.barcode }}</div>
+                                <div class="form-group">{{ form.etiqueta_opcional }}</div>
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">Gs.</span>
+                                            {{ form.precio_costo }}
+                                        </div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">Gs.</span>
+                                            {{ form.precio_venta }}
+                                        </div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="">I.V.A.</span>
+                                            {{ form.impuesto }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 form-group">
+                                        <input class="form-control" type="number" name="stock-minimo" min="0"
+                                               id="id_stock-minimo" placeholder="Stock mínimo" required>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input class="form-control" type="number" name="stock-optimo" min="0"
+                                               id="id_stock-optimo" placeholder="Stock óptimo" required>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input class="form-control" type="number" name="stock-actual" min="0"
+                                               id="id_stock-actual" placeholder="Stock actual" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 form-group d-flex justify-content-end">
+                                <input type="submit" name="submit" value="Agregar" class="btn btn-primary m-1"/>
+                                <a class="btn btn-primary m-1" href="{% url 'listar_productos' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Verificar Stock"><i class="fas fa-boxes"></i></a>
+                                <a class="btn btn-secondary m-1" href="{% url 'index' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+
+            <script src="{% static 'js/producto_promocion/nuevo_producto.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

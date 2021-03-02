@@ -1,0 +1,208 @@
+<!-- registrar_venta_V2.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.add_venta %}
+            {% include 'includes/registrar_venta/modalProductos.html' %}
+            {% include 'includes/registrar_venta/modalPromociones.html' %}
+            {% include 'includes/registrar_venta/modalClientes.html' %}
+            {% include 'includes/registrar_venta/modalNuevoCliente.html' %}
+            {% include 'includes/caja/modalAbrirCaja.html' %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            {% if estado_caja == 'abierta' %}
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 col-sm-12">
+                        <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                        <br>
+                        <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                        </div>
+                        <div id="alerts" role="alert"></div>
+
+                        <div class="d-flex">
+                            <h3 class="text-dark mr-auto mb-0 p-2">Registro de Venta</h3>
+                            <div class="p-2">
+                                <a class="btn btn-primary" href="{% url 'verificar_ventas' %}" role="button" data-toggle="tooltip" data-placement="left" title="Verificar ventas"><i class="fas fa-list"></i></a>
+                                <a class="btn btn-secondary m-1" href="{% url 'index' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-10 col-sm-12 d-flex">
+                        <div class="col-md-6">
+                            <h5 id="paso1"><b>Paso 1:</b> Agregar productos o promociones:</h5>
+                            <div class="row d-flex">
+                                <div class="col-sm-6">
+                                    <div class="card bg-light mb-3 shadow rounded" style="height: 175px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Productos</h5>
+                                            <p class="card-text">Lista detallada de todos los productos dentro del stock.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" id="boton_modalProductos" class="btn btn-primary btn-block" data-toggle="modal" data-target=".modalProductos">Ver lista</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-sm-6">
+                                    <div class="card bg-light mb-3 shadow rounded" style="height: 175px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Promociones</h5>
+                                            <p class="card-text">Lista detallada de todas las promociones creadas.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target=".modalPromociones">Ver lista</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <h5 id="paso2"><b>Paso 2:</b> Agregar datos del cliente:</h5>
+                            <div class="card bg-light mb-3 shadow rounded"  style="height: 180px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Clientes</h5>
+                                    <p class="card-text">Lista completa de todos los clientes registrados.
+                                    Si se <b>salta</b> este paso, en la factura figurará <b>SIN NOMBRE ni RUC del cliente</b>. </p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-center">
+                                    <div class="col-md-3 hidden-sm"></div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <button type="button" id="verListaClientes" class="btn btn-primary btn-block" data-toggle="modal" data-target=".modalClientes">Ver lista</button>
+                                    </div>
+                                    <div class="col-md-3 hidden-sm"></div>
+                                </div>
+                            </div>
+                            <br>
+                            <h5 id="paso3"><b>Paso 3:</b> Especificar método de pago:</h5>
+                            <div class="card bg-light mb-3 shadow rounded" style="height: 130px;">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <select id="metodo_pago" class="form-control form-control-sm col-6" disabled>
+                                                <option value="default" disabled selected>Método de pago</option>
+                                                <option value="efectivo">Efectivo</option>
+                                                <option value="td">Tarjeta de débito</option>
+                                                <option value="tc">Tarjeta de crédito</option>
+                                            </select>
+                                            <div class="input-group input-group-sm mb-3 align-self-end col-6">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Gs.</span>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="monto" type="number" placeholder="Monto" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <input class="form-control form-control-sm" id="boletaNro" type="number" placeholder="Número de boleta" style="display: none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <h5 id="paso4"><b>Paso 4:</b> Verificar datos de la factura:</h5>
+                            <div class="card bg-light mb-3 shadow rounded">
+                                <div class="card-body">
+                                    <form class="d-flex" id="VentaForm" method="post">
+                                        {% csrf_token %}
+                                        <div class="col-md-12" id="venta_actual">
+                                            <div class="form-row">
+                                                <div class="col-7">
+                                                    <input type="text" id="nombreCliente" name="nombreCliente" class="form-control form-control-sm" placeholder="Sin nombre" value="Sin nombre" readonly>
+                                                </div>
+                                                <div class="col-5">
+                                                    <input type="text" id="rucCliente" name="rucCliente" class="form-control form-control-sm" placeholder="Sin RUC" value="Sin RUC" readonly>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="form-row justify-content-center" style="height: 532px;">
+                                                <div class="table-responsive-md table-responsive-sm" style=" font-size: small; height: 390px; width:98%; overflow-y: auto;">
+                                                    <table class="table table-striped table-bordered table-hover table-sm" id="ventaActual">
+                                                        <thead class="thead-dark">
+                                                            <tr style="text-align: center">
+                                                                <th>Descripción</th>
+                                                                <th>Cant.</th>
+                                                                <th>Precio Unit. Gs.</th>
+                                                                <th>Sub-Total Gs.</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="input-group mb-3 align-self-end">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Total Gs.</span>
+                                                    </div>
+                                                    <input class="form-control form-control-lg" id="suma_total" name="suma_total" type="number" placeholder="0" value=0 readonly/>
+                                                </div>
+                                                <div class="input-group input-group-sm mb-3 align-self-end">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Monto Gs.</span>
+                                                    </div>
+                                                    <input class="form-control form-control-sm" id="factura_monto" name="factura_monto" type="number" placeholder="0" value=0 readonly/>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Vuelto Gs.</span>
+                                                    </div>
+                                                    <input class="form-control form-control-sm" id="factura_vuelto" name="factura_vuelto" type="number" placeholder="0" value=0 readonly/>
+                                                </div>
+                                                <input id="metodo_pago_hidden" name="metodo_pago_hidden" type="text" value="" hidden/>
+                                                <input id="nro_boleta_hidden" name="nro_boleta_hidden" type="number" value=0 hidden/>
+                                                <div class="row" style="width: 100%">
+                                                    <input type="text" name="bandera" id="bandera" value="FALSE" hidden disabled/>
+                                                    <input type="submit" name="submit" id="botonProcesar" value="Procesar" onclick="setBandera();" class="btn btn-danger btn-block" disabled/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elif estado_caja == 'cerrada' %}
+                <br><br>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6 d-flex flex-column justify-content-center align-items-center border border-secondary" style="border-radius: 10px;">
+                        <h2 class="mb-md-3 mb-sm-0 mt-3">La caja ya ha sido cerrada</h2>
+                        <div class="row mb-3">
+                            <div class="col-12 d-flex align-items-center">
+                                <a class="btn btn-secondary btn-lg" href="{% url 'index' %}" role="button" style="margin-right: 10px"><i class="fas fa-home"></i></a>
+                                <a class="btn btn-primary btn-lg" href="{% url 'verificar_caja' %}" role="button" style="margin-right: 10px">Ver lista</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <br><br>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6 d-flex flex-column justify-content-center align-items-center border border-secondary" style="border-radius: 10px;">
+                        <h2 class="mb-md-3 mb-sm-0 mt-3">La caja no ha sido abierta aún</h2>
+                        <div class="row mb-3">
+                            <div class="col-12 d-flex align-items-center">
+                                <a class="btn btn-secondary btn-lg" href="{% url 'index' %}" role="button" style="margin-right: 10px"><i class="fas fa-home"></i></a>
+                                <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modalAbrirCaja">
+                                    Abrir Caja
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <script src="{% static 'js/registrar_venta.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

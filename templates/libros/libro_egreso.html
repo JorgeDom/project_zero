@@ -1,0 +1,34 @@
+<!-- libro_egreso.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% include 'includes/navBar.html' %}
+    {% include 'includes/libros/modalEgresoForm.html' %}
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-10 col-sm-12">
+            <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+            <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+            </div>
+
+            <div class="d-flex">
+                <h3 class="text-dark mr-auto mb-0 p-2"> Libro de Egresos</h3>
+                <div class="p-2">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modalEgresoForm"><i class="fas fa-plus"></i></button>
+                    <a class="btn btn-secondary" href="{% url 'index' %}" role="button"><i class="fas fa-home"></i></a>
+                </div>
+            </div>
+            <hr class="mt-0">
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center  mb-5">
+        <div class="col-md-10 col-sm-12">
+            <p>ACA DEBE IR LA TABLA CON TODOS LOS DETALLES</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/libro_egreso.js' %}"></script>
+{% endblock %}

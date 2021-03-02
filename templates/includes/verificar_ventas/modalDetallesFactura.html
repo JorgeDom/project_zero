@@ -1,0 +1,99 @@
+<!-- modalDetallesFactura.html -->
+
+{% block content %}
+    <div class="modal fade modalDetallesFactura" id="modalDetallesFactura">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-tablas">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- se carga con AJAX al abrir el modal - verificar_ventas.js -->
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12" id="detalles">
+                            <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                                <table class="table table-striped table-bordered table-sm" id="detallesFactura1" style="width: 100%">
+                                    <tr>
+                                        <th class="detalle">Factura Nro.: </th><td id="nro_factura">000-000-1234567</td>
+                                    </tr><tr>
+                                        <th class="detalle">Condición de venta: </th><td id="condicion_venta">Contado</td>
+                                    </tr><tr>
+                                        <th class="detalle">Fecha: </th><td id="fecha"></td>
+                                    </tr><tr>
+                                        <th class="detalle">Cliente:</th><td id="cliente"></td>
+                                    </tr><tr>
+                                        <th class="detalle">R.U.C. del cliente: </th><td id="ruc"></td>
+                                    </tr><tr>
+                                        <th class="detalle">Método de pago: </th><td id="metodo"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                                <table class="table table-striped table-bordered table-sm" id="detallesFactura2" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Total venta</th><th>Total abonado</th><th>Total vuelto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="monto" id="total_venta">Gs. 000,000,000</td><td class="monto" id="total_abonado">Gs. 000,000,000</td><td class="monto" id="total_vuelto">Gs. 000,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                                <table class="table table-striped table-bordered table-sm" id="detallesFactura3" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Total exentas</th><th>Total grav. 5%</th><th>Total grav. 10%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="monto" id="total_exentas">Gs. 000,000,000</td><td class="monto" id="total_grav_5">Gs. 000,000,000</td><td class="monto" id="total_grav_10">Gs. 000,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                                <table class="table table-striped table-bordered table-sm" id="detallesFactura4" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Total imp. 5%</th><th>Total imp. 10%</th><th>Total impuestos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="monto" id="total_imp_5">Gs. 000,000,000</td><td class="monto" id="total_imp_10">Gs. 000,000,000</td><td class="monto" id="total_imp">Gs. 000,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 " id="productos">
+                            <div class="table-responsive-md table-responsive-sm table-wrap" style="font-size: small">
+                                <table class="table table-striped table-bordered table-sm" id="detallesFacturaProductos" style="width: 100%">
+                                    <thead>
+                                        <tr style="text-align: center">
+                                            <th>Producto</th><th>IVA</th><th>Sub-total Gs.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

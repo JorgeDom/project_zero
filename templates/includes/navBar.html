@@ -1,0 +1,115 @@
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="{% url 'index' %}">EasyStock</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavBar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavBar">
+            <ul class="navbar-nav">
+                {% if perms.easystockApp.add_producto or perms.easystockApp.view_clasificacion or perms.easystockApp.view_distribuidor or perms.easystockApp.view_marca %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Productos <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.add_producto %}
+                            <a class="dropdown-item" href="{% url 'nuevo_producto' %}">Nuevo</a>
+                        {% endif %}
+                        {% if perms.easystockApp.view_clasificacion or perms.easystockApp.view_distribuidor or perms.easystockApp.view_marca %}
+                            <a class="dropdown-item" href="{% url 'ver_CMD' %}">Clasif./Marcas/Distr.</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.easystockApp.add_promocion or perms.easystockApp.view_promocion %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Promociones <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.add_promocion %}
+                            <a class="dropdown-item" href="{% url 'crear_promo' %}">Crear</a>
+                        {% endif %}
+                        {% if perms.easystockApp.view_promocion %}
+                            <a class="dropdown-item" href="{% url 'listar_promociones' %}">Listar</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.easystockApp.view_producto %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Stock <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.view_producto %}
+                            <a class="dropdown-item" href="{% url 'listar_productos' %}">Verificiar</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.easystockApp.add_venta or perms.easystockApp.view_venta %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Ventas <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.add_venta %}
+                            <a id="enlace_registra_ventas" class="dropdown-item" href="{% url 'registrar_venta' %}">Registrar</a>
+                        {% endif %}
+                        {% if perms.easystockApp.view_venta %}
+                            <a class="dropdown-item" href="{% url 'verificar_ventas' %}">Verificar</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.easystockApp.add_cliente or perms.easystockApp.view_cliente %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Clientes <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.add_cliente %}
+                            <a class="dropdown-item" href="{% url 'nuevo_cliente' %}">Registrar</a>
+                        {% endif %}
+                        {% if perms.easystockApp.view_cliente %}
+                            <a class="dropdown-item" href="{% url 'listar_clientes' %}">Listar</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.easystockApp.view_caja %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        Caja <span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu">
+                        {% if perms.easystockApp.view_caja %}
+                            <a class="dropdown-item" href="{% url 'verificar_caja' %}">Verificar</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                {% if perms.contenttypes.view_estadisticas %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'estadisticas' %}">Estadísticas</a></li>
+                {% endif %}
+                {% if perms.eventosApp.view_evento %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'ver_logs' %}">Eventos</a></li>
+                {% endif %}
+                 <!-- Enlace SALIR -->
+            </ul>
+            <ul class="navbar-nav d-flex ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> &ensp; Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}

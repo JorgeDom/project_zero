@@ -1,0 +1,94 @@
+<!-- listar_promociones.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.view_promocion %}
+        {% include 'includes/modalDeletePromo.html' %}
+        {% include 'includes/modalDetallesPromo.html' %}
+        {% include 'includes/navBar.html' %}
+        <br><br>
+        <div class="row justify-content-center">
+            <div class="col-md-11 col-sm-12">
+                <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                <br>
+                <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                </div>
+                {% if cantidad_promociones == 0 %}
+
+                    <h5>No existen promociones aún</h5>
+                    <br>
+                    <a href="{% url 'crear_promo' %}" class="btn btn-primary" role="button">Crear promociones</a>
+
+                {% else %}
+
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Promociones disponibles</h3>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="listaPromociones">
+                            <thead>
+                                <tr align="center">
+                                    <th>Descripción</th>
+                                    <th>Precio de venta</th>
+                                    <th>Descuento</th>
+                                    <th>Cant. dis.</th>
+                                    <th>Productos</th>
+                                    <th>Información adicional</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for promocion in promociones %}
+                                    <tr>
+                                        <td class="texto">{{ promocion.descripcion }}</td>
+                                        <td class="monto">Gs. {{ promocion.precio_promocional }}</td>
+                                        <td class="cantidad"> {{ promocion.porcentaje_promocional }}%</td>
+                                        <td class="cantidad">{{ promocion.cantidad_disponible }}</td>
+                                        <td align="center">{{ promocion.productos | safe}}</td>
+                                        <td align="center">{{ promocion.info_extra }}</td>
+                                        <td align="center">
+                                            {% if perms.easystockApp.delete_promocion %}
+                                                <a href="#" data-promo_id="{{ promocion.promo_id }}" data-promo_desc="{{ promocion.descripcion }}" data-toggle="modal" data-target="#modalDeletePromo">
+                                                    <i class="far fa-trash-alt fa-lg"></i>
+                                                </a>
+                                            {% else %}
+                                                <i class="fas fa-ban fa-lg" data-toggle="tooltip" title="No posee los permisos para realizar esta operación"></i>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                <hr>
+                <div class="d-flex">
+                    <div class="mr-auto p-1">
+                        {% if request.user|has_group:"Administradores" %}
+                            <a class="btn btn-primary" href="{% url 'clasificaciones_stock' %}" role="button" data-toggle="tooltip" data-placement="right" title="Ver gráfico porcentual"><i class="fas fa-chart-pie"></i></a>
+                        {% endif %}
+                    </div>
+                    <div class="p-1"><a href="{% url 'crear_promo' %}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="bottom" title="Crear nueva promoción"><i class="fas fa-plus"></i> </a></div>
+                    <div class="p-1"><a href="{% url 'listar_productos' %}" class="btn btn-primary"  role="button" data-toggle="tooltip" data-placement="bottom" title="Verificar Stock"><i class="fas fa-boxes"></i></a></div>
+                    <div class="p-1"><a href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'js/producto_promocion/listar_productos.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

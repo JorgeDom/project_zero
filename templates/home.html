@@ -1,0 +1,20 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-center pt-5">
+        <div class="col-6">
+            <a href="{% url 'login' %}" role="button" class="btn btn-outline-info btn-lg btn-block">Login</a>
+        </div>
+    </div>
+
+<!-- {% if user.is_authenticated %}
+    {% else %}
+    {% endif %} -->
+{% endblock %}
+

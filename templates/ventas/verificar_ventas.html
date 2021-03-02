@@ -1,0 +1,116 @@
+<!-- lista_pregunto.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.easystockApp.view_venta %}
+            {% include 'includes/verificar_ventas/modalAnularFactura.html' %}
+            {% include 'includes/verificar_ventas/modalDetallesCliente.html' %}
+            {% include 'includes/verificar_ventas/modalDetallesFactura.html' %}
+            {% include 'includes/verificar_ventas/modalListaArticulos.html' %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row">
+                <div class="col-md-1 hidden-sm-down"></div>
+                <div class="col-md-10">
+                    <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                    <br>
+                    <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                    </div>
+                    {% if cantidad_ventas == 0 %}
+
+                        <h5>No existen ventas registradas</h5>
+                        <br>
+                        <a href="{% url 'registrar_venta' %}" class="btn btn-primary" role="button">Regisrar venta</a>
+
+                    {% else %}
+
+                        <div class="col-12">
+                            <div class="row justify-content-between">
+                                <h3 class="text-dark">Ventas registradas</h3>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                            <table class="table table-striped" id="listaVentas" style="width: 100%">
+                                <thead>
+                                    <tr align="center">
+                                        <th>Obs.</th>
+                                        <th>Fecha</th>
+                                        <th>Nro. Factura</th>
+                                        <th>Cliente</th>
+                                        <th>R.U.C.</th>
+                                        <th>Detalles (cliente)</th>
+                                        <th>Total Gs.</th>
+                                        <th>Detalles (factura)</th>
+                                        <th>Anular</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                         Y LA FUNCION EN view.py ES get_ventas_template_verificar_ventas-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+
+                    <div class="row">   <!-- Datos de ventas del dia -->
+                        <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center">
+                            <h6 class="mb-0">Datos de ventas:</h6>
+                            {% if datos_ventas_del_dia.mensaje == 'Si existe caja abierta' %}
+                                <span class="small">Desde la apertura de la caja ({{ datos_ventas_del_dia.fecha }})</span>
+                                <span class="small">Total de Facturas emitidas: {{ datos_ventas_del_dia.total_ventas }}</span>
+                            {% else %}
+                                <span class="small"></span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8 col-sm-12 d-flex flex-row justify-content-center align-items-center small">
+                            {% if datos_ventas_del_dia.mensaje == 'Si existe caja abierta' %}
+                                <div class="col border-right ">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_venta }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de ventas</span>
+                                </div>
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_costo }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de costos</span>
+                                </div>
+                                <div class="col border-right">
+                                    <h5 class="d-flex justify-content-center mb-0">
+                                        Gs. {{ datos_ventas_del_dia.suma_ganancia }}</h5>
+                                    <span class="small d-flex justify-content-center">Total de ganancias (ventas - costos)</span>
+                                </div>
+                            {% else %}
+                                <h6 style="color: white; background-color: #b33a3a; border-radius: 3px" class="p-1">
+                                    LA CAJA NO HA SIDO ABIERTA AÚN!</h6>
+                            {% endif %}
+                        </div>
+                    </div>
+                        <hr>
+                    <div class="row">
+                        <div class="col-md-6 form-group d-flex justify-content-start">
+                            <a class="btn btn-primary m-1" href="#" role="button" data-placement="bottom" title="Lista de articulos" data-toggle="modal" data-target="#modalListaArticulos"><i class="fas fa-book"></i></a>
+                        </div>
+                        <div class="col-md-6 form-group d-flex justify-content-end">
+                            <a class="btn btn-primary m-1" href="{% url 'registrar_venta' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Registrar venta"><i class="fas fa-hand-holding-usd"></i></a>
+                            <a class="btn btn-secondary m-1" href="{% url 'index' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-1 hidden-sm-down"></div>
+            </div>
+
+            <script src="{% static 'js/verificar_ventas.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

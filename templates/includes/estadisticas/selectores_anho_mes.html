@@ -1,0 +1,21 @@
+{% block content %}
+    <div class="col d-flex border-right">
+        <span>Para obtener el gráfico, seleccione el año y el mes que desea ver</span>
+    </div>
+    <div class="col d-flex align-items-center">
+        <label for="seleccionar_anho" class="col-sm-2 col-form-label mr-1">Año: </label>
+        <select class="col-sm-10 form-control form-control-sm" id="seleccionar_anho">
+            <option value="default" selected disabled>Eliga el Año...</option>
+            {% for anho in anhos %}
+                <option value={{ anho }}> {{ anho }} </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col d-flex align-items-center">
+        <label for="seleccionar_mes" class="col-sm-2 col-form-label mr-1">Mes: </label>
+        <select class="col-sm-10 form-control form-control-sm" id="seleccionar_mes" disabled>
+            <option value="default" selected disabled>Eliga el Mes...</option>
+        </select>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!-- ver_logs.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        {% if perms.eventosApp.view_evento %}
+            {% include 'includes/navBar.html' %}
+            <br><br>
+            <div class="row">
+                <div class="col-12 pr-5 pl-5">
+                    <!-- ////////////////////////// ALERTS! \\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                    <br>
+                    <div class= "alert {{ propiedad_alerts.tipo }}" {{ propiedad_alerts.visibilidad }}>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong><i class="fa {{ propiedad_alerts.icono }}"></i></strong> {{ propiedad_alerts.mensaje }}
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row justify-content-between">
+                            <h3 class="text-dark">Eventos del sistema</h3>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="table-responsive-md table-responsive-sm" style="font-size: small">
+                        <table class="table table-striped" id="logs">
+                            <thead>
+                                <tr align="center">
+                                    <th>Fecha/Hora</th>
+                                    <th>Evento</th>
+                                    <th>Descripción</th>
+                                    <th>Responsable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                     Y LA FUNCION EN view.py ES get_logs-->
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-end">
+                        <div class="p-1"><a  href="{% url 'index' %}" class="btn btn-secondary" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="{% static 'js/caja/verificar_caja.js' %}"></script>
+        {% else %}
+            {% include 'includes/sinPermiso.html' %}
+        {% endif %}
+    {% else %}
+        {% include 'registration/notLogin.html' %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- modalClientes.html -->
+
+{% block content %}
+    <div class="modal fade modalClientes" id="modalClientes">
+        <div class="modal-dialog modal-xl modal-tablas">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Lista de clientes</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive-md table-responsive-sm col-12" style="font-size: small">
+                        <table class="table table-striped" id="listaClientesModal" style="width: 100%">
+                            <thead>
+                                <tr align="center">
+                                    <th>Nombre/s y Apellido/s</th>
+                                    <th>C.I./R.U.C.</th>
+                                    <th>Tel. Nro.</th>
+                                    <th>E-mail</th>
+                                    <th>Agregar</th>
+                                </tr>
+                            </thead>
+                            <!-- LOS DATOS VIENEN CON AJAX DESDE LA DECLARACION DEL DATATABLES (datatables.js)
+                                 Y LA FUNCION EN view.py ES get_lista_clientes-->
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="boton_agregar_cliente">Agregar cliente</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

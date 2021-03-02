@@ -1,0 +1,33 @@
+{% block content %}
+    <div class="modal fade" id="modalDeleteCliente">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"><i class="fas fa-exclamation-triangle" style="color: #ff9900"></i> &nbsp; ¡Atención!</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <form id="formModalDeleteCliente" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        Estás a punto de <strong>ELIMINAR</strong> este cliente de la nómina,
+                        ¿estás seguro/a de continuar con la operación?
+
+                        <div class="form-group">
+                            <input title="" type="text" class="form-control" id="cliente_id" value="" hidden>
+                        </div>
+
+                    </div>
+                     <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal" style="float: right">Lo pensaré mejor</button>
+                        <button type="submit" name="submit" class="btn btn-primary" style="float: right"> Si, estoy seguro/a</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

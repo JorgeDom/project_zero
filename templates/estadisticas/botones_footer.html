@@ -1,0 +1,9 @@
+{% block content %}
+    <hr>
+    <div class="d-flex justify-content-end">
+        <div class="p-1"><a class="btn btn-primary" href="{% url 'listar_productos' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Verificar stock"><i class="fas fa-boxes"></i></a></div>
+        <div class="p-1"><a class="btn btn-primary" href="{% url 'verificar_ventas' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Verificar ventas"><i class="fas fa-list-alt"></i></a></div>
+        <div class="p-1"><a class="btn btn-primary" href="{% url 'estadisticas' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Menú de gráficos"><i class="fas fa-undo"></i></a></div>
+        <div class="p-1"><a class="btn btn-secondary" href="{% url 'index' %}" role="button" data-toggle="tooltip" data-placement="bottom" title="Volver al inicio"><i class="fas fa-home"></i></a></div>
+    </div>
+{% endblock %}

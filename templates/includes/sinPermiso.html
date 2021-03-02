@@ -1,0 +1,24 @@
+<!-- sinPermiso.html -->
+{% extends 'base.html' %}
+
+{% load auth_extras %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="row p-5">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 text-center" style="background-color: #DADADA">
+                <br><br>
+                <h1><i class="fa fa-exclamation-triangle" style="color: #9f191f"></i></h1>
+                <h1>¡Acceso restringuido!</h1>
+                <h3>Lo sentimos, pero debes poseer el permiso correspondiente para poder utilizar esta función del sistema.</h3>
+                <h5>Comuníquese con su administrador de sistemas.</h5>
+                <br><br>
+                <a class="btn btn-primary" href="{% url 'index' %}">Volver a la página principal</a>
+                <br><br><br><br>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    {% endif %}
+{% endblock %}
