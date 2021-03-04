@@ -1,0 +1,521 @@
+[{
+  "_id": {
+    "$oid": "60351003b57278ee59cce510"
+  },
+  "id": 1,
+  "name": "Can add log entry",
+  "content_type_id": 1,
+  "codename": "add_logentry"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce511"
+  },
+  "id": 2,
+  "name": "Can change log entry",
+  "content_type_id": 1,
+  "codename": "change_logentry"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce512"
+  },
+  "id": 3,
+  "name": "Can delete log entry",
+  "content_type_id": 1,
+  "codename": "delete_logentry"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce513"
+  },
+  "id": 4,
+  "name": "Can view log entry",
+  "content_type_id": 1,
+  "codename": "view_logentry"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce517"
+  },
+  "id": 5,
+  "name": "Can add permission",
+  "content_type_id": 2,
+  "codename": "add_permission"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce518"
+  },
+  "id": 6,
+  "name": "Can change permission",
+  "content_type_id": 2,
+  "codename": "change_permission"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce519"
+  },
+  "id": 7,
+  "name": "Can delete permission",
+  "content_type_id": 2,
+  "codename": "delete_permission"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51a"
+  },
+  "id": 8,
+  "name": "Can view permission",
+  "content_type_id": 2,
+  "codename": "view_permission"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51b"
+  },
+  "id": 9,
+  "name": "Can add group",
+  "content_type_id": 3,
+  "codename": "add_group"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51c"
+  },
+  "id": 10,
+  "name": "Can change group",
+  "content_type_id": 3,
+  "codename": "change_group"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51d"
+  },
+  "id": 11,
+  "name": "Can delete group",
+  "content_type_id": 3,
+  "codename": "delete_group"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51e"
+  },
+  "id": 12,
+  "name": "Can view group",
+  "content_type_id": 3,
+  "codename": "view_group"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce51f"
+  },
+  "id": 13,
+  "name": "Can add user",
+  "content_type_id": 4,
+  "codename": "add_user"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce520"
+  },
+  "id": 14,
+  "name": "Can change user",
+  "content_type_id": 4,
+  "codename": "change_user"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce521"
+  },
+  "id": 15,
+  "name": "Can delete user",
+  "content_type_id": 4,
+  "codename": "delete_user"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce522"
+  },
+  "id": 16,
+  "name": "Can view user",
+  "content_type_id": 4,
+  "codename": "view_user"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce524"
+  },
+  "id": 17,
+  "name": "Can add content type",
+  "content_type_id": 5,
+  "codename": "add_contenttype"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce525"
+  },
+  "id": 18,
+  "name": "Can change content type",
+  "content_type_id": 5,
+  "codename": "change_contenttype"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce526"
+  },
+  "id": 19,
+  "name": "Can delete content type",
+  "content_type_id": 5,
+  "codename": "delete_contenttype"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce527"
+  },
+  "id": 20,
+  "name": "Can view content type",
+  "content_type_id": 5,
+  "codename": "view_contenttype"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce529"
+  },
+  "id": 21,
+  "name": "Can add session",
+  "content_type_id": 6,
+  "codename": "add_session"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce52a"
+  },
+  "id": 22,
+  "name": "Can change session",
+  "content_type_id": 6,
+  "codename": "change_session"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce52b"
+  },
+  "id": 23,
+  "name": "Can delete session",
+  "content_type_id": 6,
+  "codename": "delete_session"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce52c"
+  },
+  "id": 24,
+  "name": "Can view session",
+  "content_type_id": 6,
+  "codename": "view_session"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce536"
+  },
+  "id": 25,
+  "name": "Can add caja",
+  "content_type_id": 7,
+  "codename": "add_caja"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce537"
+  },
+  "id": 26,
+  "name": "Can change caja",
+  "content_type_id": 7,
+  "codename": "change_caja"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce538"
+  },
+  "id": 27,
+  "name": "Can delete caja",
+  "content_type_id": 7,
+  "codename": "delete_caja"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce539"
+  },
+  "id": 28,
+  "name": "Can view caja",
+  "content_type_id": 7,
+  "codename": "view_caja"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53a"
+  },
+  "id": 29,
+  "name": "Can add clasificacion",
+  "content_type_id": 8,
+  "codename": "add_clasificacion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53b"
+  },
+  "id": 30,
+  "name": "Can change clasificacion",
+  "content_type_id": 8,
+  "codename": "change_clasificacion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53c"
+  },
+  "id": 31,
+  "name": "Can delete clasificacion",
+  "content_type_id": 8,
+  "codename": "delete_clasificacion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53d"
+  },
+  "id": 32,
+  "name": "Can view clasificacion",
+  "content_type_id": 8,
+  "codename": "view_clasificacion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53e"
+  },
+  "id": 33,
+  "name": "Can add cliente",
+  "content_type_id": 9,
+  "codename": "add_cliente"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce53f"
+  },
+  "id": 34,
+  "name": "Can change cliente",
+  "content_type_id": 9,
+  "codename": "change_cliente"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce540"
+  },
+  "id": 35,
+  "name": "Can delete cliente",
+  "content_type_id": 9,
+  "codename": "delete_cliente"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce541"
+  },
+  "id": 36,
+  "name": "Can view cliente",
+  "content_type_id": 9,
+  "codename": "view_cliente"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce542"
+  },
+  "id": 37,
+  "name": "Can add distribuidor",
+  "content_type_id": 10,
+  "codename": "add_distribuidor"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce543"
+  },
+  "id": 38,
+  "name": "Can change distribuidor",
+  "content_type_id": 10,
+  "codename": "change_distribuidor"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce544"
+  },
+  "id": 39,
+  "name": "Can delete distribuidor",
+  "content_type_id": 10,
+  "codename": "delete_distribuidor"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce545"
+  },
+  "id": 40,
+  "name": "Can view distribuidor",
+  "content_type_id": 10,
+  "codename": "view_distribuidor"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce546"
+  },
+  "id": 41,
+  "name": "Can add libro egreso",
+  "content_type_id": 11,
+  "codename": "add_libroegreso"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce547"
+  },
+  "id": 42,
+  "name": "Can change libro egreso",
+  "content_type_id": 11,
+  "codename": "change_libroegreso"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce548"
+  },
+  "id": 43,
+  "name": "Can delete libro egreso",
+  "content_type_id": 11,
+  "codename": "delete_libroegreso"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce549"
+  },
+  "id": 44,
+  "name": "Can view libro egreso",
+  "content_type_id": 11,
+  "codename": "view_libroegreso"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54a"
+  },
+  "id": 45,
+  "name": "Can add marca",
+  "content_type_id": 12,
+  "codename": "add_marca"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54b"
+  },
+  "id": 46,
+  "name": "Can change marca",
+  "content_type_id": 12,
+  "codename": "change_marca"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54c"
+  },
+  "id": 47,
+  "name": "Can delete marca",
+  "content_type_id": 12,
+  "codename": "delete_marca"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54d"
+  },
+  "id": 48,
+  "name": "Can view marca",
+  "content_type_id": 12,
+  "codename": "view_marca"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54e"
+  },
+  "id": 49,
+  "name": "Can add producto",
+  "content_type_id": 13,
+  "codename": "add_producto"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce54f"
+  },
+  "id": 50,
+  "name": "Can change producto",
+  "content_type_id": 13,
+  "codename": "change_producto"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce550"
+  },
+  "id": 51,
+  "name": "Can delete producto",
+  "content_type_id": 13,
+  "codename": "delete_producto"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce551"
+  },
+  "id": 52,
+  "name": "Can view producto",
+  "content_type_id": 13,
+  "codename": "view_producto"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce552"
+  },
+  "id": 53,
+  "name": "Can add promocion",
+  "content_type_id": 14,
+  "codename": "add_promocion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce553"
+  },
+  "id": 54,
+  "name": "Can change promocion",
+  "content_type_id": 14,
+  "codename": "change_promocion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce554"
+  },
+  "id": 55,
+  "name": "Can delete promocion",
+  "content_type_id": 14,
+  "codename": "delete_promocion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce555"
+  },
+  "id": 56,
+  "name": "Can view promocion",
+  "content_type_id": 14,
+  "codename": "view_promocion"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce556"
+  },
+  "id": 57,
+  "name": "Can add venta",
+  "content_type_id": 15,
+  "codename": "add_venta"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce557"
+  },
+  "id": 58,
+  "name": "Can change venta",
+  "content_type_id": 15,
+  "codename": "change_venta"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce558"
+  },
+  "id": 59,
+  "name": "Can delete venta",
+  "content_type_id": 15,
+  "codename": "delete_venta"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce559"
+  },
+  "id": 60,
+  "name": "Can view venta",
+  "content_type_id": 15,
+  "codename": "view_venta"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce55b"
+  },
+  "id": 61,
+  "name": "Can add evento",
+  "content_type_id": 16,
+  "codename": "add_evento"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce55c"
+  },
+  "id": 62,
+  "name": "Can change evento",
+  "content_type_id": 16,
+  "codename": "change_evento"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce55d"
+  },
+  "id": 63,
+  "name": "Can delete evento",
+  "content_type_id": 16,
+  "codename": "delete_evento"
+},{
+  "_id": {
+    "$oid": "60351003b57278ee59cce55e"
+  },
+  "id": 64,
+  "name": "Can view evento",
+  "content_type_id": 16,
+  "codename": "view_evento"
+},{
+  "_id": {
+    "$oid": "603532c1a02f9bda87561b2d"
+  },
+  "id": 65,
+  "name": "ver estadísticas",
+  "content_type_id": 5,
+  "codename": "view_estadisticas"
+}]
