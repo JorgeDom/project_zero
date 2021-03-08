@@ -1,0 +1,81 @@
+[{
+  "_id": {
+    "$oid": "60393c410234dc04dc56734e"
+  },
+  "distribuidor": "Refrescos del paraguay s.a.",
+  "clasificacion": "Gaseosa",
+  "marca": "Coca-cola",
+  "descripcion": "Cola",
+  "presentacion": "1 Litro",
+  "barcode": "101010",
+  "etiqueta_opcional": "",
+  "precio_costo": "5000",
+  "precio_venta": "7000",
+  "impuesto": "10",
+  "stock": {
+    "minimo": 500,
+    "optimo": 1000,
+    "actual": 600
+  },
+  "estado": "activo"
+},{
+  "_id": {
+    "$oid": "603940830234dc04dc56734f"
+  },
+  "distribuidor": "Refrescos del paraguay s.a.",
+  "clasificacion": "Gaseosa",
+  "marca": "Fanta",
+  "descripcion": "Naranja",
+  "presentacion": "1 Litro",
+  "barcode": "101011",
+  "etiqueta_opcional": "",
+  "precio_costo": "5000",
+  "precio_venta": "7000",
+  "impuesto": "10",
+  "stock": {
+    "minimo": 500,
+    "optimo": 1000,
+    "actual": 799
+  },
+  "estado": "activo"
+},{
+  "_id": {
+    "$oid": "603940900234dc04dc567350"
+  },
+  "distribuidor": "Refrescos del paraguay s.a.",
+  "clasificacion": "Gaseosa",
+  "marca": "Fanta",
+  "descripcion": "Piña",
+  "presentacion": "1 Litro",
+  "barcode": "101111",
+  "etiqueta_opcional": "",
+  "precio_costo": "5000",
+  "precio_venta": "7000",
+  "impuesto": "10",
+  "stock": {
+    "minimo": 500,
+    "optimo": 1000,
+    "actual": 798
+  },
+  "estado": "activo"
+},{
+  "_id": {
+    "$oid": "603940990234dc04dc567351"
+  },
+  "distribuidor": "Cervepar s.a.",
+  "clasificacion": "Cerveza",
+  "marca": "Pilsen",
+  "descripcion": "Pilsen",
+  "presentacion": "355 ml",
+  "barcode": "111010",
+  "etiqueta_opcional": "",
+  "precio_costo": "3000",
+  "precio_venta": "4000",
+  "impuesto": "10",
+  "stock": {
+    "minimo": 1000,
+    "optimo": 1500,
+    "actual": 1190
+  },
+  "estado": "activo"
+}]
